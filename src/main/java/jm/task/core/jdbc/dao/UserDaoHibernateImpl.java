@@ -20,8 +20,8 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        try (Session session = Util.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
             session.createSQLQuery("CREATE TABLE IF NOT EXISTS users (" +
                             "id BIGINT AUTO_INCREMENT PRIMARY KEY," +
                             "name VARCHAR(255) NOT NULL," +
@@ -32,9 +32,6 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
 
     }
@@ -100,6 +97,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createQuery("DELETE FROM User").executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
 
