@@ -39,13 +39,13 @@ public class Util {
                 Configuration configuration = new Configuration();
                 Properties properties = new Properties();
                 properties.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                properties.put(Environment.URL, "jdbc:mysql://@localhost:3306/users");
-                properties.put(Environment.USER, "root");
-                properties.put(Environment.PASS, "root_555742");
+                properties.put(Environment.URL, DB_URL);
+                properties.put(Environment.USER, DB_USERNAME);
+                properties.put(Environment.PASS, DB_PASSWORD);
                 properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
                 properties.put(Environment.SHOW_SQL, "true");
                 properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                properties.put(Environment.HBM2DDL_AUTO, "create-drop");
+                properties.put(Environment.HBM2DDL_AUTO, "none");
 
                 configuration.setProperties(properties);
                 configuration.addAnnotatedClass(User.class);
